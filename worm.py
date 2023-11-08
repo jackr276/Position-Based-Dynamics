@@ -154,8 +154,7 @@ def distance_constraint(particle1, particle2, constraint_distance):
 
     distance_constraint_x = absXDiff - constraint_distance
     distance_constraint_y = absYDiff - constraint_distance
-
-    #our code here
+    
     #if somehow our particles exceed the constraint distance, we want to bring them back
     #check x
     if absXDiff > constraint_distance:

@@ -145,7 +145,6 @@ def point_constraint(particle1, x2, y2):
         correction_x1 = -1 * particle1.inv_mass * xconstraint * normalVecX
         correction_y1 =  -1 * particle1.inv_mass * yconstraint * normalVecY
 
-    # TODO: complete this code
     return (correction_x1, correction_y1)
 
 

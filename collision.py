@@ -129,6 +129,7 @@ def collision_constraint(particle1,
 
 	particleDist = distance(particle1.x, particle1.y, particle2.x, particle2.y)
 
+	#if particle1 is particle2, don't do any collision checking
 	if particleDist == 0:
 		return (correction_x1,correction_y1, correction_x2,correction_y2)
 
