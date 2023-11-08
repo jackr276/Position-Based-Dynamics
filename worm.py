@@ -126,15 +126,26 @@ def distance(x1, y1, x2, y2):
     return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1))
 
 
-def distance_constraint(particle1,
-                        particle2,
-                        constraint_distance):
-    correction_x1 = 0.0
-    correction_y1 = 0.0
-    correction_x2 = 0.0
-    correction_y2 = 0.0
-    # TODO: Complete this code
-    # Write your distance constraint code here
+def distance_constraint(particle1, particle2, constraint_distance):
+    xDiff = particle1.x - particle2.x
+    yDiff = particle1.y - particle2.y
+
+    absXDiff = abs(xDiff)
+    absYDiff = abs(yDiff)
+
+    normalVecX = xDiff / absXDiff
+    normalVecY = yDiff / absYDiff
+
+    p1InvMassCalc =  -1*(particle1.inv_mass)/(particle1.inv_mass + particle2.inv_mass)
+    p2InvMassCalc = (particle2.inv_mass)/(particle1.inv_mass + particle2.inv_mass)
+
+ 
+    correction_x1 = p1InvMassCalc * (absXDiff - constraint_distance) * normalVecX
+    correction_y1 = p1InvMassCalc * (absYDiff - constraint_distance) * normalVecY
+    correction_x2 = p2InvMassCalc * (absXDiff - constraint_distance) * normalVecX
+    correction_y2 = p2InvMassCalc * (absYDiff - constraint_distance) * normalVecY
+
+
     return (correction_x1, correction_y1,
             correction_x2, correction_y2)
 
@@ -225,7 +236,7 @@ if not glfw.init():
     exit()
 
 # Create a windowed mode window and its OpenGL context
-window = glfw.create_window(screen_dimx, screen_dimy, "White Square on Black Background", None, None)
+window = glfw.create_window(screen_dimx, screen_dimy, "Worm Simulation", None, None)
 if not window:
     glfw.terminate()
     exit()

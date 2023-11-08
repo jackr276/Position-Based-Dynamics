@@ -120,13 +120,15 @@ def point_constraint(particle1, x2, y2):
 
 def collision_constraint(particle1,
                          particle2):
+	
+
 	correction_x1 = 0.0
 	correction_y1 = 0.0
 	correction_x2 = 0.0
 	correction_y2 = 0.0
-	
 
-	
+
+
 	return (correction_x1,correction_y1,
 	        correction_x2,correction_y2)
 
@@ -134,7 +136,7 @@ def resolve_collision_constraints():
 	for p1 in particles:
 		for p2 in particles:
 			delta_x1, delta_y1, delta_x2, delta_y2 = collision_constraint(p1,p2)
-			collision_constraint(p1,p2)
+			collision_constraint(p1,p2) 
 			p1.px +=  delta_x1
 			p1.py +=  delta_y1
 			p2.px +=  delta_x2
