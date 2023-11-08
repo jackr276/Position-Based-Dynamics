@@ -1,3 +1,8 @@
+"""
+Jack Robbins and Randall Tarazona
+PBD Homework Part 1
+"""
+
 #!/usr/bin/python
 
 # This is statement is required by the build system to query build info
@@ -55,7 +60,8 @@ class Constraint:
         self.id1 = id1
         self.id2 = id2
         self.distance = distance
-        self.stiffness = 0.1
+        #increased stiffness(looks a little better when stiffer)
+        self.stiffness = 0.3
 
 
 particles = [Particle(0.0, 0.0),
@@ -127,6 +133,12 @@ def distance(x1, y1, x2, y2):
 
 
 def distance_constraint(particle1, particle2, constraint_distance):
+    correction_x1 = 0.0
+    correction_y1 = 0.0
+    correction_x2 = 0.0
+    correction_y2 = 0.0
+
+    #helpers for us
     xDiff = particle1.x - particle2.x
     yDiff = particle1.y - particle2.y
 
@@ -135,19 +147,28 @@ def distance_constraint(particle1, particle2, constraint_distance):
 
     normalVecX = xDiff / absXDiff
     normalVecY = yDiff / absYDiff
-
+    
     p1InvMassCalc =  -1*(particle1.inv_mass)/(particle1.inv_mass + particle2.inv_mass)
     p2InvMassCalc = (particle2.inv_mass)/(particle1.inv_mass + particle2.inv_mass)
 
- 
-    correction_x1 = p1InvMassCalc * (absXDiff - constraint_distance) * normalVecX
-    correction_y1 = p1InvMassCalc * (absYDiff - constraint_distance) * normalVecY
-    correction_x2 = p2InvMassCalc * (absXDiff - constraint_distance) * normalVecX
-    correction_y2 = p2InvMassCalc * (absYDiff - constraint_distance) * normalVecY
 
+    distance_constraint_x = absXDiff - constraint_distance
+    distance_constraint_y = absYDiff - constraint_distance
 
-    return (correction_x1, correction_y1,
-            correction_x2, correction_y2)
+    #our code here
+    #if somehow our particles exceed the constraint distance, we want to bring them back
+    #check x
+    if absXDiff >= constraint_distance:
+        #update x corrections
+        correction_x1 = p1InvMassCalc * distance_constraint_x * normalVecX
+        correction_x2 = p2InvMassCalc * distance_constraint_x * normalVecX
+
+    if absYDiff >= constraint_distance:
+        # update y corrections
+        correction_y1 = p1InvMassCalc * distance_constraint_y * normalVecY
+        correction_y2 = p2InvMassCalc * distance_constraint_y * normalVecY
+
+    return (correction_x1, correction_y1, correction_x2, correction_y2)
 
 
 def pbd_main_loop():
