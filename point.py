@@ -126,7 +126,7 @@ def point_constraint(particle1, x2, y2):
     particleDist = distance(particle1.x, x2, particle1.y, y2)
 
     #we want to lock particle1 to the center(x2, y2)
-    if particleDist != 0:
+    if particleDist > 0:
         #if it's not where it should be, apply correction
         xDiff = particle1.x - x2
         yDiff = particle1.y - y2
@@ -137,12 +137,13 @@ def point_constraint(particle1, x2, y2):
         normalVecX = xDiff / absXDiff
         normalVecY = yDiff / absYDiff
 
-        #we want distance to be zero
-        constraint = particleDist - 0
+        #constraints we have are the current distance
+        xconstraint = absXDiff
+        yconstraint = absYDiff
 
-
-        correction_x1 = -1 * particle1.inv_mass * constraint * normalVecX
-        correction_y1 =  -1 * particle1.inv_mass * constraint * normalVecY
+        #apply correction in appropraite direction
+        correction_x1 = -1 * particle1.inv_mass * xconstraint * normalVecX
+        correction_y1 =  -1 * particle1.inv_mass * yconstraint * normalVecY
 
     # TODO: complete this code
     return (correction_x1, correction_y1)
