@@ -61,7 +61,7 @@ class Constraint:
         self.id2 = id2
         self.distance = distance
         #increased stiffness(looks a little better when stiffer)
-        self.stiffness = 0.3
+        self.stiffness = 0.1
 
 
 particles = [Particle(0.0, 0.0),
@@ -154,7 +154,7 @@ def distance_constraint(particle1, particle2, constraint_distance):
 
     distance_constraint_x = absXDiff - constraint_distance
     distance_constraint_y = absYDiff - constraint_distance
-    
+
     #if somehow our particles exceed the constraint distance, we want to bring them back
     #check x
     if absXDiff > constraint_distance:
