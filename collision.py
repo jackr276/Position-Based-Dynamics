@@ -124,7 +124,9 @@ def collision_constraint(particle1,
 	correction_y1 = 0.0
 	correction_x2 = 0.0
 	correction_y2 = 0.0
-	# TODO: complete this code
+	
+
+	
 	return (correction_x1,correction_y1,
 	        correction_x2,correction_y2)
 
@@ -165,7 +167,7 @@ def pbd_main_loop():
 def display():
    glClear (GL_COLOR_BUFFER_BIT)
    drawParticles()
-   glFlush ();
+   glFlush()
 
 def particle_clicked(x,y):
 	res = None
