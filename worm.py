@@ -138,7 +138,7 @@ def distance_constraint(particle1, particle2, constraint_distance):
     correction_x2 = 0.0
     correction_y2 = 0.0
 
-    #helpers for us
+    #helpers for us, simple calculations we need
     xDiff = particle1.x - particle2.x
     yDiff = particle1.y - particle2.y
 
@@ -158,12 +158,12 @@ def distance_constraint(particle1, particle2, constraint_distance):
     #our code here
     #if somehow our particles exceed the constraint distance, we want to bring them back
     #check x
-    if absXDiff >= constraint_distance:
+    if absXDiff > constraint_distance:
         #update x corrections
         correction_x1 = p1InvMassCalc * distance_constraint_x * normalVecX
         correction_x2 = p2InvMassCalc * distance_constraint_x * normalVecX
 
-    if absYDiff >= constraint_distance:
+    if absYDiff > constraint_distance:
         # update y corrections
         correction_y1 = p1InvMassCalc * distance_constraint_y * normalVecY
         correction_y2 = p2InvMassCalc * distance_constraint_y * normalVecY

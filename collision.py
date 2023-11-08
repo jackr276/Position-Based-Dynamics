@@ -120,15 +120,45 @@ def point_constraint(particle1, x2, y2):
 
 def collision_constraint(particle1,
                          particle2):
-	
-
 	correction_x1 = 0.0
 	correction_y1 = 0.0
 	correction_x2 = 0.0
 	correction_y2 = 0.0
 
+	desiredDistance = particle1.r*2
 
+	particleDist = distance(particle1.x, particle1.y, particle2.x, particle2.y)
 
+	if particleDist == 0:
+		return (correction_x1,correction_y1, correction_x2,correction_y2)
+
+	#if our distance is less than radius*2, we have a collision
+	if particleDist < desiredDistance-0.001:
+		#helpers for us, simple calculations we need
+		xDiff = particle1.x - particle2.x
+		yDiff = particle1.y - particle2.y
+
+		absXDiff = abs(xDiff)
+		absYDiff = abs(yDiff)
+
+		#normal vector tells us direction of correction
+		normalVecX = xDiff / absXDiff
+		normalVecY = yDiff / absYDiff
+
+		#Corrections weighted according to inverse masses
+		p1InvMassCalc =  -1*(particle1.inv_mass)/(particle1.inv_mass + particle2.inv_mass)
+		p2InvMassCalc = (particle2.inv_mass)/(particle1.inv_mass + particle2.inv_mass)
+
+		# constraint is how far we must adjust
+		constraint = particleDist - desiredDistance - 0.001
+
+		#apply correction factors
+		correction_x1 = p1InvMassCalc * constraint * normalVecX
+		correction_x2 = p2InvMassCalc * constraint * normalVecX
+
+		correction_y1 = p1InvMassCalc * constraint * normalVecY
+		correction_y2 = p2InvMassCalc * constraint * normalVecY
+	
 	return (correction_x1,correction_y1,
 	        correction_x2,correction_y2)
 
