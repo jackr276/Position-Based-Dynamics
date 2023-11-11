@@ -1,3 +1,7 @@
+"""
+Jack Robbins and Randall Tarazona
+PBD Homework Part 3
+"""
 #!/usr/bin/python
 
 # This is statement is required by the build system to query build info
@@ -230,7 +234,7 @@ if not glfw.init():
     exit()
 
 # Create a windowed mode window and its OpenGL context
-window = glfw.create_window(screen_dimx, screen_dimy, "White Square on Black Background", None, None)
+window = glfw.create_window(screen_dimx, screen_dimy, "Point Constraint Demo", None, None)
 if not window:
     glfw.terminate()
     exit()
