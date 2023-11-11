@@ -143,8 +143,8 @@ def collision_constraint(particle1,
 		absYDiff = abs(yDiff)
 
 		#normal vector tells us direction of correction
-		normalVecX = xDiff / absXDiff
-		normalVecY = yDiff / absYDiff
+		normalVecX = xDiff / particleDist
+		normalVecY = yDiff / particleDist 
 
 		#Corrections weighted according to inverse masses
 		p1InvMassCalc =  -1*(particle1.inv_mass)/(particle1.inv_mass + particle2.inv_mass)

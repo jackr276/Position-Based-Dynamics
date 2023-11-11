@@ -34,7 +34,7 @@ screen_world_height = screen_bottomy-screen_topy
 
 time_delta = 1 / 64.
 particle_radii = 0.3
-Fextx = -0.05
+Fextx = -0.04
 last_time=0.0
 dragged_particle = None
 is_dragging = False
@@ -58,7 +58,7 @@ class Constraint:
         self.id1 = id1
         self.id2 = id2
         self.distance = distance
-        self.stiffness = 0.05
+        self.stiffness = 0.03
 
 
 class PointConstraint:
@@ -68,11 +68,11 @@ class PointConstraint:
         self.y = y
 
 
-particles = [Particle(i * particle_radii * 2.1, screen_topy+3*particle_radii ) for i in range(15)]
+particles = [Particle(i * particle_radii * 2.1, screen_topy+40*particle_radii ) for i in range(15)]
 
 point_constraints = [PointConstraint(0,
                                      0.0,
-                                     screen_topy+3*particle_radii )]
+                                     screen_topy+40*particle_radii )]
 
 
 distance_constraints = [
@@ -167,7 +167,7 @@ def timer():
     current_time = glfw.get_time()
     delta_time = current_time - last_time
     #last_time = current_time
-    if(delta_time > 1.8):
+    if(delta_time > 3.8):
         print(current_time,last_time)
         last_time=current_time
         Fextx = -Fextx
