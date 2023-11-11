@@ -60,8 +60,8 @@ class Constraint:
         self.id1 = id1
         self.id2 = id2
         self.distance = distance
-        #increased stiffness(looks a little better when stiffer)
-        self.stiffness = 0.1
+        #increased stiffness(looks a little better when less stiff)
+        self.stiffness = 0.08
 
 
 particles = [Particle(0.0, 0.0),
@@ -151,21 +151,21 @@ def distance_constraint(particle1, particle2, constraint_distance):
     p1InvMassCalc =  -1*(particle1.inv_mass)/(particle1.inv_mass + particle2.inv_mass)
     p2InvMassCalc = (particle2.inv_mass)/(particle1.inv_mass + particle2.inv_mass)
 
+    #calculate particle distance(|p1-p2| from the paper)
+    particleDist = math.sqrt(xDiff * xDiff + yDiff * yDiff)
 
-    distance_constraint_x = absXDiff - constraint_distance
-    distance_constraint_y = absYDiff - constraint_distance
+
+    distance_constraint = particleDist - constraint_distance
 
     #if somehow our particles exceed the constraint distance, we want to bring them back
-    #check x
-    if absXDiff > constraint_distance:
-        #update x corrections
-        correction_x1 = p1InvMassCalc * distance_constraint_x * normalVecX
-        correction_x2 = p2InvMassCalc * distance_constraint_x * normalVecX
+    
+    #update x corrections
+    correction_x1 = p1InvMassCalc * distance_constraint * normalVecX
+    correction_x2 = p2InvMassCalc * distance_constraint * normalVecX
 
-    if absYDiff > constraint_distance:
-        # update y corrections
-        correction_y1 = p1InvMassCalc * distance_constraint_y * normalVecY
-        correction_y2 = p2InvMassCalc * distance_constraint_y * normalVecY
+    # update y corrections
+    correction_y1 = p1InvMassCalc * distance_constraint * normalVecY
+    correction_y2 = p2InvMassCalc * distance_constraint * normalVecY
 
     return (correction_x1, correction_y1, correction_x2, correction_y2)
 
