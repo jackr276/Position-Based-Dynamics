@@ -58,7 +58,7 @@ class Constraint:
         self.id1 = id1
         self.id2 = id2
         self.distance = distance
-        self.stiffness = 0.1
+        self.stiffness = 0.05
 
 
 class PointConstraint:
@@ -180,6 +180,31 @@ def point_constraint(particle1, x2, y2):
     correction_x1 = 0.0
     correction_y1 = 0.0
     #TODO: Complete this code
+
+    #If its at the center, we'll have 0
+    # particleDist = distance(particle1.x, x2, particle1.y, y2)
+    particleDist = distance(particle1.x, particle1.y , x2, y2)
+
+    #we want to lock particle1 to the center(x2, y2)
+    if particleDist > 0:
+        #if it's not where it should be, apply correction
+        xDiff = particle1.x - x2
+        yDiff = particle1.y - y2
+
+        absXDiff = abs(xDiff)
+        absYDiff = abs(yDiff)
+
+        normalVecX = xDiff / absXDiff
+        normalVecY = yDiff / absYDiff
+
+        #constraints we have are the current distance
+        xconstraint = absXDiff
+        yconstraint = absYDiff
+
+        #apply correction in appropraite direction
+        correction_x1 = -1 * particle1.inv_mass * xconstraint * normalVecX
+        correction_y1 =  -1 * particle1.inv_mass * yconstraint * normalVecY
+
     return (correction_x1, correction_y1)
 
 
@@ -191,6 +216,35 @@ def distance_constraint(particle1,
     correction_y1 = 0.0
     correction_x2 = 0.0
     correction_y2 = 0.0
+
+    #helpers for us, simple calculations we need
+    xDiff = particle1.x - particle2.x
+    yDiff = particle1.y - particle2.y
+
+    absXDiff = abs(xDiff)
+    absYDiff = abs(yDiff)
+
+    #calculate particle distance(|p1-p2| from the paper)
+    particleDist = math.sqrt(xDiff * xDiff + yDiff * yDiff)
+
+    #calculate normal x and y vectors
+    normalVecX = xDiff / particleDist
+    normalVecY = yDiff / particleDist
+    
+    #inverse mass calculations
+    p1InvMassCalc =  -1*(particle1.inv_mass)/(particle1.inv_mass + particle2.inv_mass)
+    p2InvMassCalc = (particle2.inv_mass)/(particle1.inv_mass + particle2.inv_mass)
+
+    distance_constraint = particleDist - constraint_distance
+    
+    #update x corrections
+    correction_x1 = p1InvMassCalc * distance_constraint * normalVecX
+    correction_x2 = p2InvMassCalc * distance_constraint * normalVecX
+
+    # update y corrections
+    correction_y1 = p1InvMassCalc * distance_constraint * normalVecY
+    correction_y2 = p2InvMassCalc * distance_constraint * normalVecY
+
     return (correction_x1, correction_y1,
             correction_x2, correction_y2)
 
@@ -238,7 +292,7 @@ def pbd_main_loop():
         # line 14
         particle.x = particle.px
         particle.y = particle.py
-    glutPostRedisplay()
+    # glutPostRedisplay()
 
 
 def display():
