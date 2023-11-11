@@ -177,7 +177,7 @@ def pbd_main_loop():
         # line 14
         particle.x = particle.px
         particle.y = particle.py
-    glutPostRedisplay()
+    # glutPostRedisplay()
 
 
 def display():

@@ -27,7 +27,6 @@ ERROR: PyOpenGL not installed properly.
         ''')
     sys.exit()
 
-
 screen_dimx = 550
 screen_dimy = 550
 screen_leftx = -15
@@ -203,7 +202,7 @@ def pbd_main_loop():
         # line 14
         particle.x = particle.px
         particle.y = particle.py
-    glutPostRedisplay()
+    # glutPostRedisplay()
 
 
 def display():
