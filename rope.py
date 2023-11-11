@@ -186,7 +186,7 @@ def point_constraint(particle1, x2, y2):
 def distance_constraint(particle1,
                         particle2,
                         constraint_distance):
-                        
+    # TODO complete this code
     correction_x1 = 0.0
     correction_y1 = 0.0
     correction_x2 = 0.0
