@@ -15,4 +15,5 @@ There are 4 separate demonstrations, the code for each being linked below:
   2. Create a python [virtual environment](https://docs.python.org/3/library/venv.html)
   3. Activate your new python [virtual environment](https://docs.python.org/3/library/venv.html)
   4. Run ```pip -r install requirements.txt```
-  5. Enjoy your position based dynamics! All of the *.py files can be run with the command ```python filename.py```
+  5. Run the desired file with the command ```python filename.py```
+  6. Enjoy the position based dynamics!
