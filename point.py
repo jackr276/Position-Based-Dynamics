@@ -138,6 +138,10 @@ def point_constraint(particle1, x2, y2):
         absXDiff = abs(xDiff)
         absYDiff = abs(yDiff)
 
+        #added for safety
+        if absXDiff == 0 or absYDiff == 0:
+            return 0.0, 0.0
+
         normalVecX = xDiff / absXDiff
         normalVecY = yDiff / absYDiff
 
